@@ -1,13 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color: #f3f4f6;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.sk-loader-main-div {
+  /* background-color: rgb(200,200,200); */
+  animation-name: sk-loader-animation;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
+
+@keyframes sk-loader-animation {
+  0% {background-color: rgba(230,230,230,1)}
+  100% {background-color: rgba(230,230,230,0.4)} 
+}
+
+.dashboard-client-feedback {
+  grid-column: 2/4;
+  height: 100%;
+}
+.dashboard-grid {
+  display: grid;
+}
+@media only screen and (max-width: 900px) {
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, 1fr);
+  }
+  .dashboard-client-feedback {
+    grid-column: auto;
+  }
+}
+/* width */
+::-webkit-scrollbar {
+  width: 0px
+}
+
+/* Track */
+
+
