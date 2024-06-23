@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
-export const InputText = ({ name, title,currentValue, placeholder, handlleFormInput }) => {
+export const InputText = ({ name, title,currentValue, placeholder, handlleFormInput, validity }) => {
+  
+  
   return (
     <div className="flex flex-col gap-1">
-      {title}
+      {`${title}*`}
       <input
         onChange={(e) => handlleFormInput(e)}
-        className="border-solid border-black outline-none p-2  focus:shadow-md rounded-sm border-opacity-50"
+        className={` rounded-md  outline-none p-2  ${!validity ? ' border-4 border-solid border-red-600' : 'border-solid border-gray-400'}`}
         style={{ borderWidth: "1px", width: "30rem" }}
         type="text"
         placeholder={placeholder}

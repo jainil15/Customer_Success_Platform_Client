@@ -5,6 +5,8 @@ import { baseUrl } from "../../../Environments/environment.development.js";
 import Dropdown from "../../../Utils/Dropdown.jsx";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
+import { FormModalLayout } from "../../../Layout/FormModalLayout.tsx";
+import { ManagerDropdown } from "../../Forms/ManagerDropdown.tsx";
 interface User {
   id: string;
   name: string;
@@ -15,6 +17,7 @@ interface ManagerOption {
 
 export const CreateProject = ({ closeModal }) => {
   const [currentStep, setCurrentStep] = useState(0);
+
   const [formData, setFormData] = useState({
     name: "",
     managerId: "",
@@ -29,6 +32,16 @@ export const CreateProject = ({ closeModal }) => {
       },
     ],
   });
+
+  const [currentStepValidation, setCurrentStepValidation] =
+    useState<boolean>(false);
+
+  const formSteps = [
+    "Project details",
+    "Invite clients",
+    "Select project manager",
+  ];
+
   const {
     data: managers,
     error,
@@ -38,7 +51,6 @@ export const CreateProject = ({ closeModal }) => {
   const [managerOptions, setManagerOptions] = useState<ManagerOption[]>();
   useEffect(() => {
     if (managers && managers.users) {
-      console.log(managers);
       const options = managers.users.map((manager) => ({
         value: manager.id,
         label: manager.name,
@@ -56,7 +68,6 @@ export const CreateProject = ({ closeModal }) => {
       ...prevData,
       [name]: value,
     }));
-    console.log(formData, e.target);
   };
   const handleArrayInput = (e, index: number) => {
     const { name, value } = e.target;
@@ -69,7 +80,6 @@ export const CreateProject = ({ closeModal }) => {
       ...prevData,
       clients: clients,
     }));
-    console.log(formData);
   };
   const handleAddClient = (e) => {
     let clients = formData.clients;
@@ -106,131 +116,125 @@ export const CreateProject = ({ closeModal }) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(project);
     closeModal();
   };
-
-  const buttonArray = (
-    <div className="flex justify-between items-center mb-2">
-      <button
-        onClick={() => handleChangeStep(0)}
-        className="bg-blue-600 rounded-full w-6 h-6"
-      >
-        1
-      </button>
-      <div className="w-1/3  bg-gray-500" style={{ height: "1px" }}></div>
-      <button
-        onClick={() => handleChangeStep(1)}
-        className="bg-blue-600 rounded-full w-6 h-6"
-      >
-        2
-      </button>
-      <div className="w-1/3 bg-gray-500" style={{ height: "1px" }}></div>
-      <button
-        onClick={() => handleChangeStep(2)}
-        className="bg-blue-600 rounded-full w-6 h-6"
-      >
-        3
-      </button>
-    </div>
-  );
 
   switch (currentStep) {
     case 0:
       return (
-        <div>
-          {buttonArray}
-          <div className="pt-1 overflow-scroll">
-            <div className="flex flex-col gap-2 justify-between items-start">
-              <InputText
-                name="name"
-                title={"Project name"}
-                placeholder={"Project name"}
-                handlleFormInput={handleFormInput}
-                currentValue={formData.name}
-              />
-              <button
-                className="p-2 mt-4 bg-blue-600 rounded-md text-white"
-                onClick={handleContinue}
-              >
-                CONTINUE
-              </button>
+        <FormModalLayout
+          handleChangeStep={handleChangeStep}
+          steps={formSteps}
+          currentStep={currentStep}
+        >
+          <div>
+            <div className="pt-1 overflow-scroll">
+              <div className="flex flex-col gap-2 justify-between items-start">
+                <InputText
+                  name="name"
+                  title={"Project name"}
+                  placeholder={"Project name"}
+                  handlleFormInput={handleFormInput}
+                  currentValue={formData.name}
+                  validity={ formData.name !== ""}
+                />
+                <button
+                  className="p-2 mt-4 bg-blue-600 rounded-md text-white"
+                  onClick={handleContinue}
+                >
+                  CONTINUE
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </FormModalLayout>
       );
     case 1:
       return (
-        <div className="h-full">
-          {buttonArray}
-          <div className="pt-1">
-            <div className="flex flex-col gap-2 justify-between items-start">
-              <div className="flex flex-col gap-2 items-start">
-                <div
-                  className="flex flex-col gap-2 justify-between items-start overflow-scroll"
-                  style={{ maxHeight: "25rem" }}
-                >
-                  {formData.clients.map((client, index) => (
-                    <div
-                      key={index}
-                      className="flex flex-col gap-2 items-start"
-                    >
-                      <InputText
-                        handlleFormInput={(e) => handleArrayInput(e, index)}
-                        name={`name`}
-                        placeholder={`Client ${index + 1} Name`}
-                        title="Client Name"
-                        currentValue={client.name}
-                      />
-                      <InputText
-                        handlleFormInput={(e) => handleArrayInput(e, index)}
-                        name={`email`}
-                        placeholder={`Client ${index + 1} Email`}
-                        title="Client Email"
-                        currentValue={client.email}
-                      />
-                    </div>
-                  ))}
+        <FormModalLayout
+          handleChangeStep={handleChangeStep}
+          steps={formSteps}
+          currentStep={currentStep}
+        >
+          <div className="h-full">
+            <div className="pt-1">
+              <div className="flex flex-col gap-2 justify-between items-start">
+                <div className="flex flex-col gap-2 items-start">
+                  <div
+                    className="flex flex-col gap-2 justify-between items-start overflow-scroll"
+                    style={{ maxHeight: "25rem" }}
+                  >
+                    {formData.clients.map((client, index) => (
+                      <div
+                        key={index}
+                        className="flex flex-col gap-2 items-start"
+                      >
+                        <InputText
+                          handlleFormInput={(e) => handleArrayInput(e, index)}
+                          name={`name`}
+                          placeholder={`Client ${index + 1} Name`}
+                          title="Client Name"
+                          currentValue={client.name}
+                          validity={client.name !== ""}
+                        />
+                        <InputText
+                          handlleFormInput={(e) => handleArrayInput(e, index)}
+                          name={`email`}
+                          placeholder={`Client ${index + 1} Email`}
+                          title="Client Email"
+                          validity={client.email !== ""}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <button
+                    className="p-2 mt-4 bg-blue-600 rounded-md text-white"
+                    onClick={handleAddClient}
+                  >
+                    ADD CLIENT
+                  </button>
                 </div>
                 <button
                   className="p-2 mt-4 bg-blue-600 rounded-md text-white"
-                  onClick={handleAddClient}
+                  onClick={handleContinue}
                 >
-                  ADD CLIENT
+                  CONTINUE
                 </button>
               </div>
-              <button
-                className="p-2 mt-4 bg-blue-600 rounded-md text-white"
-                onClick={handleContinue}
-              >
-                CONTINUE
-              </button>
             </div>
           </div>
-        </div>
+        </FormModalLayout>
       );
     case 2:
       if (loading) return <div>Loading...</div>;
       if (error) return <div>Error: {error}</div>;
       return (
-        <div>
-          {buttonArray}
-          <div className="pt-1">
-            <div
-              className="flex flex-col gap-2 justify-between items-start"
-              style={{ minWidth: "25rem" }}
-            >
-              <div>Select Manager</div>
-              <Dropdown options={managerOptions} sendProjectId={setManagerId} />
-              <button
-                className="p-2 mt-4 bg-blue-600 rounded-md text-white"
-                onClick={(e) => handleSubmit(e)}
+        <FormModalLayout
+          handleChangeStep={handleChangeStep}
+          steps={formSteps}
+          currentStep={currentStep}
+        >
+          <div>
+            <div className="pt-1">
+              <div
+                className="flex flex-col gap-2 justify-between items-start"
+                style={{ minWidth: "25rem" }}
               >
-                SUBMIT
-              </button>
+                <div>Select Manager</div>
+                <ManagerDropdown
+                  options={managerOptions}
+                  sendProjectId={setManagerId}
+                />
+                <button
+                  className="p-2 mt-4 bg-blue-600 rounded-md text-white"
+                  onClick={(e) => handleSubmit(e)}
+                >
+                  SUBMIT
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </FormModalLayout>
       );
   }
 };

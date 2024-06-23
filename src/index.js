@@ -1,25 +1,27 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import App from "./App.tsx";
+import reportWebVitals from "./reportWebVitals.js";
 import { Auth0Provider } from "@auth0/auth0-react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <React.StrictMode>
-    <Auth0Provider
-      domain="https://dev-r07u7mel6oip3xhm.us.auth0.com"
-      clientId="KW0casNS7zcVWLtZPtTBjLDU8dGKinSu"
-      authorizationParams={{
-        audience: "https://cspjainilauthapi.jainilpatel.tech",
-        redirect_uri: `${window.location.origin}/login`,
-      }}
-      useRefreshTokens
-      cacheLocation="localstorage"
-    >
-      <App />
-    </Auth0Provider>
+    
+      <Auth0Provider
+        domain="https://dev-r07u7mel6oip3xhm.us.auth0.com"
+        clientId="KW0casNS7zcVWLtZPtTBjLDU8dGKinSu"
+        authorizationParams={{
+          audience: "https://cspjainilauthapi.jainilpatel.tech",
+          redirect_uri: `${window.location.origin}/login`,
+        }}
+        useRefreshTokens
+        cacheLocation="localstorage"
+      >
+        <App />
+      </Auth0Provider>
   </React.StrictMode>
 );
 

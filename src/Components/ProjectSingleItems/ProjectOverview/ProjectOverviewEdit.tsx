@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { baseUrl } from "../../../Environments/environment.development";
-import useAuthFetch from "../../../Hooks/useAuthFetch";
+import { baseUrl } from "../../../Environments/environment.development.js";
+import useAuthFetch from "../../../Hooks/useAuthFetch.jsx";
 import { ProjectInputText } from "../../Forms/ProjectInputText.tsx";
 import Dropdown from "../../Dropdown.jsx";
 import axios from "axios";
@@ -26,7 +26,7 @@ export const ProjectOverviewEdit = ({ project, setEdit, handleFormSubmit }) => {
   if (error) return <div>Request Failed</div>;
   if (loading) return <div></div>;
   return (
-    <div className="flex flex-col gap-6 p-3 mr-16 overflow-scroll">
+    <>
       <ProjectInputText
         name="name"
         currentValue={formData.name}
@@ -85,6 +85,6 @@ export const ProjectOverviewEdit = ({ project, setEdit, handleFormSubmit }) => {
       >
         Save
       </button>
-    </div>
+    </>
   );
 };

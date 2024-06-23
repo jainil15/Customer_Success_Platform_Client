@@ -9,9 +9,10 @@ import { baseUrl } from "../Environments/environment.development.js";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = ({ sendProjectId }) => {
-  
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
-  const { data, loading, error } = useAuthFetch(`${baseUrl}/user/projects/${user.sub}`);
+  const { data, loading, error } = useAuthFetch(
+    `${baseUrl}/user/projects/${user.sub}`
+  );
 
   if (error)
     return (
@@ -21,8 +22,8 @@ const Navbar = ({ sendProjectId }) => {
     );
   if (loading)
     return (
-      <div
-        className="flex bg-white p-2 justify-between fixed top-0 w-full"
+      <nav
+        className="flex bg-white p-2 justify-between top-0 w-full"
         style={{ fontFamily: "FigTree" }}
       >
         <Icon />
@@ -31,17 +32,20 @@ const Navbar = ({ sendProjectId }) => {
           <Search />
           <ProfileIcon />
         </div>
-      </div>
+      </nav>
     );
   let projects = [];
 
   for (let i = 0; i < data.users.projects.length; i++) {
-    projects.push({ label: data.users.projects[i].name, value: data.users.projects[i].id });
+    projects.push({
+      label: data.users.projects[i].name,
+      value: data.users.projects[i].id,
+    });
   }
 
   return (
-    <div
-      className="flex bg-white p-2 justify-between fixed top-0 w-full"
+    <nav
+      className="flex bg-white p-2 justify-between w-full overflow-scroll sticky"
       style={{ fontFamily: "FigTree" }}
     >
       <Icon />
@@ -55,7 +59,7 @@ const Navbar = ({ sendProjectId }) => {
         <Search />
         <ProfileIcon />
       </div>
-    </div>
+    </nav>
   );
 };
 

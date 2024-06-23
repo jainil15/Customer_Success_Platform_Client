@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { baseUrl } from "../Environments/environment.development";
-
+import "../Css/Login.css";
 export const Login = () => {
   const {
     loginWithRedirect,
@@ -25,12 +25,11 @@ export const Login = () => {
           const response = await axios.post(`${baseUrl}/user`, data, {
             headers: { Authorization: `Bearer ${token}` },
           });
-         
         } catch (e) {}
       };
       postUser();
     }
-  }, [isAuthenticated, isLoading, user]);
+  }, [getAccessTokenSilently, isAuthenticated, isLoading, user]);
   if (isLoading) {
     return (
       <div className="w-full h-[100vh] flex justify-center items-center bg-black">
@@ -45,23 +44,16 @@ export const Login = () => {
           style={{
             lineHeight: "14rem",
             letterSpacing: "2.5rem",
-            opacity: "8%",
+            opacity: "10%",
           }}
         >
-          <marquee scrollamount="20" direction="right">
-            CUSTOMER
-          </marquee>{" "}
-          <marquee scrollamount="20" direction="left">
-            SUCCESS
-          </marquee>
-          <marquee scrollamount="20" direction="right">
-            {" "}
-            PLATFORM
-          </marquee>
+          <div className="left-to-right">CUSTOMER</div>
+          <div className="right-to-left">SUCCESS</div>
+          <div className="left-to-right">PLATFORM</div>
         </div>
         <button
           onClick={() => loginWithRedirect()}
-          className="bg-white px-8 py-3 rounded-lg text-gray-100 z-10 bg-opacity-10"
+          className="bg-white px-8 py-3 rounded-lg text-gray-100 z-10 bg-opacity-10 font-semibold "
         >
           Login
         </button>

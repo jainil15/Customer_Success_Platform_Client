@@ -7,7 +7,6 @@ const useAuthProjectFetch = (url) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const { getAccessTokenSilently, isAuthenticated } = useAuth0();
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -21,7 +20,6 @@ const useAuthProjectFetch = (url) => {
         const res = await axios.get(url, config);
         setData(res.data);
       } catch (error) {
-        console.log(error);
         setError(error);
       } finally {
         setLoading(false);

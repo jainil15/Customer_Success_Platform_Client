@@ -8,13 +8,9 @@ import ClientFeedbackBoard from "./DashboardItems/ClientFeedbackBoard";
 
 const Dashboard = ({ projectId }) => {
   return (
-    <div className="flex">
+    <div className="flex h-full">
       <div
-        className=" bg-gray-100 grid w-full grid-rows-2 grid-cols-3 gap-4 overflow-scroll dashboard-grid"
-        style={{
-          height: "88.5vh",
-          
-        }}
+        className=" bg-gray-100 grid w-full h-full grid-rows-2 grid-cols-3 gap-4 overflow-scroll dashboard-grid"
       >
         <ProjectBoard projectId={projectId} />
 
@@ -26,6 +22,7 @@ const Dashboard = ({ projectId }) => {
 
         <div className="dashboard-client-feedback">
           <ClientFeedbackBoard />
+        
         </div>
       </div>
     </div>

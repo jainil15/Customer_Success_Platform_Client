@@ -5,7 +5,7 @@ import { Link, Navigate } from "react-router-dom";
 const Sidebar = ({ sendToggleState }) => {
   const [toggle, setToggle] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [isSecondModalOpen, setIsSecondModalOpen] = useState(false);
   useEffect(() => {
     sendToggleState(toggle);
   }, [toggle]);
@@ -23,7 +23,7 @@ const Sidebar = ({ sendToggleState }) => {
   };
 
   return (
-    <div>
+    <div className="h-full mr-3">
       <button
         className="fixed  z-20 bg-blue-700 text-white opacity-30 rounded-r-3xl"
         onClick={handleToggleClick}
@@ -33,14 +33,14 @@ const Sidebar = ({ sendToggleState }) => {
           top: "72px",
           width: "15px",
         }}
-      ></button>
+      > </button>
       <div
-        className={`bg-gray-100 p-2 fixed h-full overflow-auto  border-r-2 border-gray-200 ${
+        className={`bg-gray-100 p-2 h-full overflow-auto  border-r-2 border-gray-200 ${
           toggle ? "w-60" : "w-0 hidden"
         }`}
-        style={{ top: "4rem" }}
+        
       >
-        <div className="flex flex-col justify-between h-full">
+        <div className="flex flex-col justify-between h-full gap-3">
           <div className="flex flex-col gap-3">
             <Link to={"/home"} className="p-3 bg-white rounded">
               Dashboard
@@ -54,7 +54,7 @@ const Sidebar = ({ sendToggleState }) => {
           <div>
             <button
               className="p-3 bg-white rounded justify-between w-full text-left"
-              style={{ marginBottom: "70px" }}
+              
               onClick={handleToggleModal}
             >
               New Project
@@ -62,7 +62,7 @@ const Sidebar = ({ sendToggleState }) => {
           </div>
         </div>
       </div>
-      <Modal isOpen={isModalOpen} onClose={handleToggleModal}>
+      <Modal title={"Create Project"} isOpen={isModalOpen} onClose={handleToggleModal}>
         <CreateProject closeModal={handleToggleModal} />
       </Modal>
     </div>

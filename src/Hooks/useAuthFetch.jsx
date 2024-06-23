@@ -21,8 +21,8 @@ const useAuthFetch = (url) => {
         const res = await axios.get(url, config);
         setData(res.data);
       } catch (error) {
-        console.log(error);
         setError(error);
+
       } finally {
         setLoading(false);
       }

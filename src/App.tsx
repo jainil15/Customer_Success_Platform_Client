@@ -1,16 +1,16 @@
-import logo from "./logo.svg";
 import "./App.css";
 import {
   createBrowserRouter,
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-import { Home } from "./pages/Home";
-import { Login } from "./pages/Login";
+import { Home } from "./pages/Home.jsx";
+import { Login } from "./pages/Login.tsx";
 import { Projects } from "./pages/Projects.tsx";
-import { HomeLayout } from "./Layout/HomeLayout";
+import { HomeLayout } from "./Layout/HomeLayout.jsx";
 import { HomeLayoutProvider } from "./Context/HomeLayoutProvider.tsx";
 import { ProjectSingle } from "./pages/ProjectSingle.tsx";
+import React from "react";
 
 const router = createBrowserRouter([
   {
@@ -39,13 +39,13 @@ const router = createBrowserRouter([
       },
       {
         path: "project/:id",
-        element: <ProjectSingle />
-      }
+        element: <ProjectSingle />,
+      },
     ],
   },
   {
     path: "*",
-    element: <Navigate to="/login" />, // Redirect to Login for all undefined routes
+    element: <Navigate to="/login" />, // Redirect to Login for all undefined paths.
   },
 ]);
 

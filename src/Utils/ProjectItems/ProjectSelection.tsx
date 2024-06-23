@@ -8,15 +8,14 @@ enum ProjectStatus {
   HOLD,
 }
 
-export const ProjectSelection = ({projects}) => {
+export const ProjectSelection = ({ projects }) => {
   const [toggle, setToggle] = useState<ProjectStatus>(ProjectStatus.ALL);
-  const {user} = useAuth0();
-  useEffect(()=> {
-  })
+
+  useEffect(() => {});
   return (
-    <div className="">
+    <div className="w-full">
       <div
-        className="flex gap-4 py-[5px] mx-2 min-w-[500px]"
+        className="flex gap-4 py-[5px] mx-2 w-full"
         style={{ borderBottom: "1px solid #C5C7D0" }}
       >
         <div className="">
@@ -100,7 +99,7 @@ export const ProjectSelection = ({projects}) => {
           </div>
         </div>
       </div>
-      <div>
+      <div className="w-full ">
         <ProjectTable projects={projects} />
       </div>
     </div>

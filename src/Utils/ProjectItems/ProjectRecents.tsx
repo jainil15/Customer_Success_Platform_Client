@@ -5,8 +5,8 @@ export const ProjectRecents = () => {
     "Resolved issue with user registration form validation. Users were experiencing errors when submitting registration forms with invalid email addresses. Implemented enhanced validation checks to ensure accurate data input and smoother registration process. Users can now register with confidence knowing that their information is securely validated before submission.";
 
   return (
-    <div className="flex flex-col bg-white p-4 rounded-sm gap-2">
-      <div className="text text-lg" style={{ fontWeight: "bold" }}>
+    <div className="flex flex-col bg-white p-4 w-full rounded-sm gap-2 min-h-[250px] overflow-scroll">
+      <div className="text text-lg " style={{ fontWeight: "bold" }}>
         Recent Updates
       </div>
       <div className="text-[16px]">{update}</div>

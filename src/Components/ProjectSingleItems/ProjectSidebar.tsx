@@ -43,7 +43,7 @@ const SelectButton = ({
 };
 export const ProjectSidebar = ({ handleChangeDetail, currentDetail }) => {
   return (
-    <div className="py-3 flex flex-col min-w-[140px] max-w-[150px] justify-between  h-[480px] overflow-y-scroll">
+    <div className="py-3 flex flex-col min-w-[140px] max-w-[150px] justify-between max-h-[480px] overflow-scroll">
       <SelectButton
         handleChangeDetail={handleChangeDetail}
         currentDetail={currentDetail}
@@ -55,9 +55,9 @@ export const ProjectSidebar = ({ handleChangeDetail, currentDetail }) => {
       <SelectButton
         handleChangeDetail={handleChangeDetail}
         currentDetail={currentDetail}
-        detail={ProjectDetail.BUDGET}
+        detail={ProjectDetail.AUDIT}
       >
-        Budget
+        Audit
       </SelectButton>
       <SelectButton
         handleChangeDetail={handleChangeDetail}
